@@ -7,3 +7,7 @@
 
 
 // Note how we export the array. This makes it accessible to other files using require.
+
+var waitListData = [];
+
+module.exports = waitListData;

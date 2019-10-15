@@ -23,15 +23,38 @@ module.exports = function(app) {
     res.json(tableData);
   });
 
+  app.get("/api/waitlist", function(req, res) {
+    res.json(waitListData);
+  })
+
 
   // API POST Requests
   // Below code handles when a user submits a form and thus submits data to the server.
   // In each of the below cases, when a user submits form data (a JSON object)
   // ...the JSON is pushed to the appropriate JavaScript array
   // (ex. User fills out a reservation request... this data is then sent to the server...
-  // Then the server saves the data to the tableData array)
+  // Then the server saves the data to the tabled ata array)
   // ---------------------------------------------------------------------------
 
+  app.post("/api/tables", function(req, res) {
+    let newTable = req.body
+
+    if (tableData.length < 5 && waitListData.length === 0) {
+      console.log(`${newTable} taking a seat`);
+
+      newTable.waitlisted = false;
+
+      tableData.push(newTable);
+      res.json(newTable)
+    } else {
+      console.log(`${newTable} added to waitlist`);
+
+      newTable.waitlisted = true;
+
+      waitListData.push(newTable);
+      res.json(newTable)
+    }
+  })
 
   // ---------------------------------------------------------------------------
   // I added this below code so you could clear out the table while working with the functionality.
