@@ -36,6 +36,25 @@ module.exports = function(app) {
   // Then the server saves the data to the tabled ata array)
   // ---------------------------------------------------------------------------
 
+  app.post("/api/tables", function(req, res) {
+    let newTable = req.body
+
+    if (tableData.length < 5 && waitListData.length === 0) {
+      console.log(`${newTable} taking a seat`);
+
+      newTable.waitlisted = false;
+
+      tableData.push(newTable);
+      res.json(newTable)
+    } else {
+      console.log(`${newTable} added to waitlist`);
+
+      newTable.waitlisted = true;
+
+      waitListData.push(newTable);
+      res.json(newTable)
+    }
+  })
 
   // ---------------------------------------------------------------------------
   // I added this below code so you could clear out the table while working with the functionality.
