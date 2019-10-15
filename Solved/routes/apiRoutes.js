@@ -40,14 +40,14 @@ module.exports = function(app) {
     let newTable = req.body
 
     if (tableData.length < 5 && waitListData.length === 0) {
-      console.log(`${newTable} taking a seat`);
+      console.log(`${newTable.customerName} taking a seat`);
 
       newTable.waitlisted = false;
 
       tableData.push(newTable);
       res.json(newTable)
     } else {
-      console.log(`${newTable} added to waitlist`);
+      console.log(`${newTable.customerName} added to waitlist`);
 
       newTable.waitlisted = true;
 
